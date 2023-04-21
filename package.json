@@ -1,0 +1,27 @@
+{
+  "name": "cypress-gha-slash-command-example",
+  "version": "1.0.0",
+  "description": "Run selected Cypress tests by commenting on the pull request example",
+  "private": true,
+  "scripts": {
+    "test": "cypress run",
+    "tags": "find-cypress-specs --tags"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bahmutov/cypress-gha-slash-command-example.git"
+  },
+  "keywords": ["cypress-example"],
+  "author": "Gleb Bahmutov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bahmutov/cypress-gha-slash-command-example/issues"
+  },
+  "homepage": "https://github.com/bahmutov/cypress-gha-slash-command-example#readme",
+  "devDependencies": {
+    "@bahmutov/cy-grep": "^1.8.0",
+    "cypress": "^12.10.0",
+    "find-cypress-specs": "^1.33.0",
+    "prettier": "^2.8.7"
+  }
+}
