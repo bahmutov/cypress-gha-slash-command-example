@@ -1,0 +1,48 @@
+name: ci
+
+# default values to use
+env:
+  tags: '' # grep tags
+  machines: 1 # split run across N machines
+
+# run the workflow for different events
+# - when we trigger the workflow manually
+# - when we dispatch an event
+on:
+  workflow_dispatch:
+    inputs:
+      machines:
+        description: Number of machines
+        type: number
+        default: 1
+        required: false
+      tags:
+        description: Test tags to filter
+        type: string
+        default: ''
+        required: false
+  repository_dispatch:
+    types: [on-ci]
+jobs:
+  tests:
+    runs-on: ubuntu-20.04
+    steps:
+      - run: echo "event name is:" ${{ github.event_name }}
+      - run: echo "event type is:" ${{ github.event.action }}
+
+      - name: Set merged variables
+        run: |
+          echo "tags=${{ github.event.inputs.tags || github.event.client_payload.tags || env.tags }}" >> $GITHUB_ENV
+          echo "machines=${{ github.event.inputs.machines || github.event.client_payload.machines || env.machines }}" >> $GITHUB_ENV
+
+      - name: Print mereged variables
+        run: |
+          echo "test tagss ${{ env.tags }}"
+          echo "number of machines ${{ env.machines }}"
+
+      # https://github.com/bahmutov/cypress-workflows
+      - name: Run Cypress tests
+        uses: bahmutov/cypress-workflows/.github/workflows/split.yml@v2
+        with:
+          nE2E: ${{ env.machines }}
+          env: grepTags=${{ env.tags }}
