@@ -1,0 +1,16 @@
+name: Slash Command Dispatch
+on:
+  issue_comment:
+    types: [created]
+jobs:
+  slash_command_dispatch:
+    runs-on: ubuntu-20.04
+    steps:
+      # https://github.com/peter-evans/slash-command-dispatch
+      - name: Slash Command Dispatch
+        uses: peter-evans/slash-command-dispatch@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          # we only have a single "/cypress" command in this repo
+          commands: |
+            cypress

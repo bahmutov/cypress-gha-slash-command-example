@@ -1,0 +1,17 @@
+name: Slash Command (Cypress)
+on:
+  repository_dispatch:
+    types: [cypress-command]
+jobs:
+  print:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Print args 🖨️
+        run: echo ${{ fromJson(github.event.client_payload.slash_command.args.named) }}
+
+  cypress_tests:
+    # https://github.com/bahmutov/cypress-workflows
+    uses: bahmutov/cypress-workflows/.github/workflows/split.yml@v2
+    with:
+      nE2E: ${{ github.event.client_payload.slash_command.args.named.machines }}
+      env: grepTags=${{ github.event.client_payload.slash_command.args.named.tags }}
