@@ -38,7 +38,7 @@ jobs:
 
       - name: Print mereged variables
         run: |
-          echo "test tagss ${{ steps.variables.outputs.tags }}"
+          echo "test tags ${{ steps.variables.outputs.tags }}"
           echo "number of machines ${{ steps.variables.outputs.machines }}"
 
   tests:
@@ -46,5 +46,5 @@ jobs:
     # https://github.com/bahmutov/cypress-workflows
     uses: bahmutov/cypress-workflows/.github/workflows/split.yml@v2
     with:
-      nE2E: ${{ needs.prepare.outputs.machines }}
+      nE2E: ${{ fromJson(needs.prepare.outputs.machines) }}
       env: grepTags=${{ needs.prepare.outputs.tags }}
