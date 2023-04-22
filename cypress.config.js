@@ -9,9 +9,11 @@ module.exports = defineConfig({
     video: false,
     env: { grepFilterSpecs: true, grepOmitFiltered: true },
     setupNodeEvents(on, config) {
-      cypressSplit(on, config)
       // https://github.com/bahmutov/cy-grep
       require('@bahmutov/cy-grep/src/plugin')(config)
+      // after filtering by tags, split the remaining specs
+      cypressSplit(on, config)
+
       // IMPORTANT: return the config object
       return config
     },
