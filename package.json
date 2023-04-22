@@ -5,13 +5,16 @@
   "private": true,
   "scripts": {
     "test": "cypress run",
+    "names": "find-cypress-specs --names",
     "tags": "find-cypress-specs --tags"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/bahmutov/cypress-gha-slash-command-example.git"
   },
-  "keywords": ["cypress-example"],
+  "keywords": [
+    "cypress-example"
+  ],
   "author": "Gleb Bahmutov",
   "license": "ISC",
   "bugs": {
