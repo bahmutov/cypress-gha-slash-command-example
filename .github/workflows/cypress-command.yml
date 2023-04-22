@@ -1,0 +1,57 @@
+name: Cypress command
+
+# default values to use
+env:
+  tags: '' # grep tags
+  machines: 1 # split run across N machines
+
+# run the workflow for different events
+# - when we trigger the workflow manually
+# - when we dispatch an event
+on:
+  workflow_dispatch:
+    inputs:
+      machines:
+        description: Number of machines
+        type: number
+        default: 1
+        required: false
+      tags:
+        description: Test tags to filter
+        type: string
+        default: ''
+        required: false
+      repository:
+        description: 'The repository from which the slash command was dispatched'
+        required: true
+      comment-id:
+        description: 'The comment-id of the slash command'
+        required: true
+jobs:
+  # collect the variables and parameters into
+  # tags and number of machines
+  prepare:
+    runs-on: ubuntu-20.04
+    outputs:
+      tags: ${{ steps.variables.outputs.tags }}
+      machines: ${{ steps.variables.outputs.machines }}
+    steps:
+      - name: Merge variables
+        id: variables
+        run: |
+          echo "tags=${{ github.event.inputs.tags || env.tags }}" >> "$GITHUB_OUTPUT"
+          echo "machines=${{ github.event.inputs.machines || env.machines }}" >> "$GITHUB_OUTPUT"
+
+      - name: Print the merged variables
+        run: |
+          echo "test tags ${{ steps.variables.outputs.tags }}"
+          echo "number of machines ${{ steps.variables.outputs.machines }}"
+
+  tests:
+    needs: prepare
+    # https://github.com/bahmutov/cypress-workflows
+    uses: bahmutov/cypress-workflows/.github/workflows/split.yml@v2
+    with:
+      # tip: need to pass the number of machines as a number, and not as a string
+      nE2E: ${{ fromJson(needs.prepare.outputs.machines) }}
+      env: grepTags=${{ needs.prepare.outputs.tags }}

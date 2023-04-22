@@ -12,6 +12,10 @@ jobs:
         with:
           token: ${{ secrets.GH_PERSONAL_TOKEN }}
           reaction-token: ${{ secrets.GH_PERSONAL_TOKEN }}
+          dispatch-type: workflow
+          static-args: |
+            repository=${{ github.repository }}
+            comment-id=${{ github.event.comment.id }}
           # we only have a single "/cypress" command in this repo
           commands: |
             cypress
