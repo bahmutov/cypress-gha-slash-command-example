@@ -7,7 +7,7 @@ module.exports = defineConfig({
     // baseUrl, etc
     fixturesFolder: false,
     video: false,
-    env: { grepFilterSpecs: true, grepOmitFiltered: true },
+    env: { grepFilterSpecs: true, grepOmitFiltered: true, grepPrefixAt: true },
     setupNodeEvents(on, config) {
       // https://github.com/bahmutov/cy-grep
       require('@bahmutov/cy-grep/src/plugin')(config)
