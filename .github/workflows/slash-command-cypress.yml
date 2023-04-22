@@ -13,5 +13,5 @@ jobs:
     # https://github.com/bahmutov/cypress-workflows
     uses: bahmutov/cypress-workflows/.github/workflows/split.yml@v2
     with:
-      nE2E: ${{ github.event.client_payload.slash_command.args.named.machines }}
-      env: grepTags=${{ github.event.client_payload.slash_command.args.named.tags }}
+      nE2E: ${{ fromJson(github.event.client_payload.slash_command.args.named.machines) || 1 }}
+      env: 'grepTags=${{ github.event.client_payload.slash_command.args.named.tags }}'
