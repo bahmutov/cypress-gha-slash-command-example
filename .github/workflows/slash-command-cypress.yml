@@ -7,11 +7,11 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Print args 🖨️
-        run: echo '${{ fromJson(github.event.client_payload.slash_command.args.named) }}'
+        run: echo '${{ fromJson(github.event.client_payload) }}'
 
-  cypress_tests:
-    # https://github.com/bahmutov/cypress-workflows
-    uses: bahmutov/cypress-workflows/.github/workflows/split.yml@v2
-    with:
-      nE2E: ${{ fromJson(github.event.client_payload.slash_command.args.named.machines) || 1 }}
-      env: 'grepTags=${{ github.event.client_payload.slash_command.args.named.tags }}'
+  # cypress_tests:
+  #   # https://github.com/bahmutov/cypress-workflows
+  #   uses: bahmutov/cypress-workflows/.github/workflows/split.yml@v2
+  #   with:
+  #     nE2E: ${{ fromJson(github.event.client_payload.slash_command.args.named.machines) || 1 }}
+  #     env: 'grepTags=${{ github.event.client_payload.slash_command.args.named.tags }}'
