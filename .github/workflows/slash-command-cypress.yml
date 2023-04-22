@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Print args 🖨️
-        run: echo '${{ fromJson(github.event.client_payload) }}'
+        run: echo '${{ github.event.client_payload }}'
 
   # cypress_tests:
   #   # https://github.com/bahmutov/cypress-workflows
