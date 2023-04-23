@@ -70,5 +70,5 @@ jobs:
           comment-id: ${{ github.event.inputs.comment-id }}
           body: |
             Cypress tests called with:
-              tags "${{ needs.prepare.outputs.tags }}"
-              machins ${{ needs.prepare.outputs.machines }}
+            tags "${{ needs.prepare.outputs.tags }}"
+            machines ${{ needs.prepare.outputs.machines }}
