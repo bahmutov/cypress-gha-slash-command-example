@@ -21,6 +21,7 @@ on:
         type: string
         default: ''
         required: false
+      # information about the comment that triggered this workflow
       repository:
         description: 'The repository from which the slash command was dispatched'
         required: true
@@ -55,3 +56,16 @@ jobs:
       # tip: need to pass the number of machines as a number, and not as a string
       nE2E: ${{ fromJson(needs.prepare.outputs.machines) }}
       env: grepTags=${{ needs.prepare.outputs.tags }}
+
+  comment:
+    needs: [tests, prepare]
+    # https://github.com/peter-evans/create-or-update-comment
+    uses: peter-evans/create-or-update-comment@v2
+    with:
+      token: ${{ secrets.GH_PERSONAL_TOKEN }}
+      repository: ${{ github.event.inputs.repository }}
+      comment-id: ${{ github.event.inputs.comment-id }}
+      body: |
+        Cypress tests called with:
+          tags "${{ needs.prepare.outputs.tags }}"
+          machins ${{ needs.prepare.outputs.machines }}
