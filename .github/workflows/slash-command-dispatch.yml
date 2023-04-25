@@ -6,6 +6,9 @@ jobs:
   slash_command_dispatch:
     runs-on: ubuntu-20.04
     steps:
+      - name: Print inputs 🖨️
+        run: echo "${{ toJson(github) }}"
+
       # https://github.com/peter-evans/slash-command-dispatch
       - name: Slash Command Dispatch
         uses: peter-evans/slash-command-dispatch@v3
@@ -16,6 +19,7 @@ jobs:
           static-args: |
             repository=${{ github.repository }}
             comment-id=${{ github.event.comment.id }}
+            ref=${{ github.base_ref }}
           # we only have a single "/cypress" command in this repo
           commands: |
             cypress
