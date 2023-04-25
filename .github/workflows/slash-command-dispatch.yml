@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Print inputs 🖨️
-        run: echo "${{ toJson(github) }}"
+        run: echo "${{ toJson(github.event.issue) }}"
 
       # https://github.com/peter-evans/slash-command-dispatch
       - name: Slash Command Dispatch
