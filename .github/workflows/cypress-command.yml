@@ -41,6 +41,8 @@ jobs:
         id: variables
         run: |
           echo "ref=${{ github.ref }}"
+          echo "current branch $(git branch --show-current)"
+          echo "github vars $GITHUB_SHA $GITHUB_REF"
           echo "tags=${{ github.event.inputs.tags || env.tags }}" >> "$GITHUB_OUTPUT"
           echo "machines=${{ github.event.inputs.machines || env.machines }}" >> "$GITHUB_OUTPUT"
 
