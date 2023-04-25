@@ -2,6 +2,8 @@
 
 > Run selected Cypress tests by commenting on the pull request example
 
+📝 Read the blog post [Cypress GitHub Actions Slash Command](https://glebbahmutov.com/blog/cypress-slash-command/)
+
 ## Small print
 
 Author: Gleb Bahmutov &lt;gleb.bahmutov@gmail.com&gt; &copy; 2023
