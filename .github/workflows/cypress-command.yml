@@ -40,6 +40,7 @@ jobs:
       - name: Merge variables
         id: variables
         run: |
+          echo "ref=${{ github.ref }}"
           echo "tags=${{ github.event.inputs.tags || env.tags }}" >> "$GITHUB_OUTPUT"
           echo "machines=${{ github.event.inputs.machines || env.machines }}" >> "$GITHUB_OUTPUT"
 
