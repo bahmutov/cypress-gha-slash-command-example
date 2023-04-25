@@ -10,6 +10,7 @@ jobs:
         run: |
           echo 'machines ${{ github.event.client_payload.slash_command.args.named.machines }}'
           echo 'tags ${{ github.event.client_payload.slash_command.args.named.tags }}'
+          echo 'PR ${{ toJson(github.event.client_payload.pull_request) }}'
 
   # cypress_tests:
   #   # https://github.com/bahmutov/cypress-workflows
