@@ -17,7 +17,7 @@ jobs:
           reaction-token: ${{ secrets.GH_PERSONAL_TOKEN }}
           dispatch-type: workflow
           static-args: |
-            ref=refs/pull/${{ github.event.issue.number }}/merge
+            ref=refs/pull/${{ github.event.issue.number }}
             repository=${{ github.repository }}
             comment-id=${{ github.event.comment.id }}
           # we only have a single "/cypress" command in this repo
