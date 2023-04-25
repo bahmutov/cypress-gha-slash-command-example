@@ -9,7 +9,11 @@ jobs:
       - name: Print inputs 🖨️
         run: echo "${{ toJson(github.event.issue) }}"
 
-      - uses: andrevalentin/get-branch-name-by-pr@v1
+      # we only know the pull request number, like 12, 20, etc
+      # but to trigger the workflow we need the branch name
+      # https://github.com/bahmutov/get-branch-name-by-pr
+      - name: Find the PR branch name 🔎
+        uses: bahmutov/get-branch-name-by-pr@v1
         id: pr
         with:
           repo-token: ${{ secrets.GH_PERSONAL_TOKEN }}
@@ -22,8 +26,6 @@ jobs:
           token: ${{ secrets.GH_PERSONAL_TOKEN }}
           reaction-token: ${{ secrets.GH_PERSONAL_TOKEN }}
           dispatch-type: workflow
-          # how to get the current branch?
-          # ref=pull/${{ github.event.issue.number }}
           static-args: |
             ref=${{ steps.pr.outputs.branch }}
             repository=${{ github.repository }}
