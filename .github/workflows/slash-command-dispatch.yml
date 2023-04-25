@@ -9,6 +9,12 @@ jobs:
       - name: Print inputs 🖨️
         run: echo "${{ toJson(github.event.issue) }}"
 
+      - uses: andrevalentin/get-branch-name-by-pr@v1
+        id: pr
+        with:
+          repo-token: ${{ secrets.GH_PERSONAL_TOKEN }}
+          pr-id: ${{ github.event.issue.number }}
+
       # https://github.com/peter-evans/slash-command-dispatch
       - name: Slash Command Dispatch
         uses: peter-evans/slash-command-dispatch@v3
@@ -19,7 +25,7 @@ jobs:
           # how to get the current branch?
           # ref=pull/${{ github.event.issue.number }}
           static-args: |
-            ref=refs/heads/pr6
+            ref=${{ steps.pr.outputs.branch }}
             repository=${{ github.repository }}
             comment-id=${{ github.event.comment.id }}
           # we only have a single "/cypress" command in this repo
