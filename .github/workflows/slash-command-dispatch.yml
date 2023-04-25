@@ -17,8 +17,9 @@ jobs:
           reaction-token: ${{ secrets.GH_PERSONAL_TOKEN }}
           dispatch-type: workflow
           # how to get the current branch?
+          # ref=pull/${{ github.event.issue.number }}
           static-args: |
-            ref=pull/${{ github.event.issue.number }}
+            ref=refs/pull/13/head
             repository=${{ github.repository }}
             comment-id=${{ github.event.comment.id }}
           # we only have a single "/cypress" command in this repo
