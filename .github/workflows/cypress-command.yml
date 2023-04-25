@@ -74,3 +74,4 @@ jobs:
             Cypress tests called with:
             tags "${{ needs.prepare.outputs.tags }}"
             machines ${{ needs.prepare.outputs.machines }}
+            branch ref ${{ github.ref }}
