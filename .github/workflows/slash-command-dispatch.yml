@@ -19,7 +19,7 @@ jobs:
           # how to get the current branch?
           # ref=pull/${{ github.event.issue.number }}
           static-args: |
-            ref=refs/pull/13/head
+            ref=refs/heads/pr6
             repository=${{ github.repository }}
             comment-id=${{ github.event.comment.id }}
           # we only have a single "/cypress" command in this repo
